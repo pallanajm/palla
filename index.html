@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+#SubscribeTXT {
+  font-size: 20px;
+  color: #9fc4d0;
+}
+
+button {
+  color: #9fc4d0;
+  text-decoration: none;
+  font-size: 25px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  margin: 10px 0 0;
+}
+
+button::before {
+  margin-left: auto;
+}
+
+button::after, button::before {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #06aed8;
+  display: block;
+  transition: 0.5s;
+}
+
+button:hover::after, button:hover::before {
+  width: 100%;
+}
+
+.container {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  display: flex;
+  margin: auto;
+  aspect-ratio: 16/9;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.input-container {
+  filter: drop-shadow(46px 36px 24px #4090b5) drop-shadow(-55px -40px 25px #9e30a9);
+  animation: blinkShadowsFilter 8s ease-in infinite;
+}
+
+.input-content {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  padding-inline: 1em;
+}
+
+.input-content::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: blur(40px);
+  -webkit-clip-path: polygon(26% 0, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+  clip-path: polygon(26% 0, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+  background: rgba(122, 251, 255, 0.5568627451);
+  transition: all 1s ease-in-out;
+}
+
+.input-content::after {
+  content: "";
+  position: absolute;
+  width: 98%;
+  height: 98%;
+  box-shadow: inset 0px 0px 20px 20px #212121;
+  background: repeating-linear-gradient(to bottom, transparent 0%, rgba(64, 144, 181, 0.6) 1px, rgb(0, 0, 0) 3px, hsl(295, 60%, 12%) 5px, #153544 4px, transparent 0.5%), repeating-linear-gradient(to left, hsl(295, 60%, 12%) 100%, hsla(295, 60%, 12%, 0.99) 100%);
+  -webkit-clip-path: polygon(26% 0, 31% 5%, 61% 5%, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+  clip-path: polygon(26% 0, 31% 5%, 61% 5%, 66% 0, 92% 0, 100% 8%, 100% 89%, 91% 100%, 7% 100%, 0 92%, 0 0);
+  animation: backglitch 50ms linear infinite;
+}
+
+.input-dist {
+  z-index: 80;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding-inline: 1em;
+  padding-block: 1.2em;
+  grid-template-columns: 1fr;
+}
+
+.input-type {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1em;
+  margin: 10px;
+  padding: 10px;
+  font-size: 1.1rem;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+}
+
+.input-is {
+  color: #ffffff;
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+  transition: all 1s ease-in-out;
+  border-bottom: 1px solid hsl(221, 26%, 43%);
+}
+
+.input-is:hover {
+  transition: all 1s ease-in-out;
+  background: linear-gradient(90deg, transparent 0%, rgba(102, 224, 255, 0.2) 27%, rgba(102, 224, 255, 0.2) 63%, transparent 100%);
+}
+
+.input-content:focus-within::before {
+  transition: all 1s ease-in-out;
+  background: hsla(0, 0%, 100%, 0.814);
+}
+
+.input-is:focus {
+  outline: none;
+  border-bottom: 1px solid hsl(0, 100%, 99%);
+  color: hsl(0, 0%, 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(102, 224, 255, 0.2) 27%, rgba(102, 224, 255, 0.2) 63%, transparent 100%);
+}
+
+.input-is::-moz-placeholder {
+  color: hsla(192, 100%, 88%, 0.806);
+}
+
+.input-is::placeholder {
+  color: hsla(192, 100%, 88%, 0.806);
+}
+
+@keyframes backglitch {
+  0% {
+    box-shadow: inset 0px 20px 20px 30px #212121;
+  }
+
+  50% {
+    box-shadow: inset 0px -20px 20px 30px hsl(297, 42%, 10%);
+  }
+
+  to {
+    box-shadow: inset 0px 20px 20px 30px #212121;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate(-50%, 20%);
+  }
+
+  50% {
+    transform: rotate(180deg) translate(40%, 10%);
+  }
+
+  to {
+    transform: rotate(360deg) translate(-50%, 20%);
+  }
+}
+
+@keyframes blinkShadowsFilter {
+  0% {
+    filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.3411764706)) drop-shadow(-55px -40px 28px #9e30a9);
+  }
+
+  25% {
+    filter: drop-shadow(46px -36px 24px rgba(64, 144, 181, 0.8980392157)) drop-shadow(-55px 40px 24px #9e30a9);
+  }
+
+  50% {
+    filter: drop-shadow(46px 36px 30px rgba(64, 144, 181, 0.8980392157)) drop-shadow(-55px 40px 30px rgba(159, 48, 169, 0.2941176471));
+  }
+
+  75% {
+    filter: drop-shadow(20px -18px 25px rgba(64, 144, 181, 0.8980392157)) drop-shadow(-20px 20px 25px rgba(159, 48, 169, 0.2941176471));
+  }
+
+  to {
+    filter: drop-shadow(46px 36px 28px rgba(64, 144, 181, 0.3411764706)) drop-shadow(-55px -40px 28px #9e30a9);
+  }
+}
+  </style>
+</head>
+<body>
+
+<!-- Login Form (Code 1) -->
+<form id="loginForm" class="container" action="#" onsubmit="return validateForm()">
+  <div class="input-container">
+    <div class="input-content">
+      <div class="input-dist">
+        <input id="email" class="input-is" type="text" required="" placeholder="User" />
+      </div>
+      <div class="input-dist">
+        <input id="password" class="input-is" type="password" required="" placeholder="Password" />
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="submit-button">Log in</button>
+</form>
+
+<!-- Page with Clickable Tiles (Code 2) - Initially hidden -->
+<div id="pageContent" class="container" style="display: none;">
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <style>
+    html {
+      --s: 50px;
+      --c: #191b22;
+      --_s: calc(2*var(--s)) calc(2*var(--s));
+      --_g: 35.36% 35.36% at;
+      --_c: #0000 66%,#20222a 68% 70%,#0000 72%;
+      background: 
+        radial-gradient(var(--_g) 100% 25%,var(--_c)) var(--s) var(--s)/var(--_s), 
+        radial-gradient(var(--_g) 0 75%,var(--_c)) var(--s) var(--s)/var(--_s), 
+        radial-gradient(var(--_g) 100% 25%,var(--_c)) 0 0/var(--_s), 
+        radial-gradient(var(--_g) 0 75%,var(--_c)) 0 0/var(--_s), 
+        repeating-conic-gradient(var(--c) 0 25%,#0000 0 50%) 0 0/var(--_s), 
+        radial-gradient(var(--_c)) 0 calc(var(--s)/2)/var(--s) var(--s) var(--c);
+      background-attachment: fixed;
+    }
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: rgb(255, 255, 255); /* Change text color to white */
+  }
+  
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .part {
+        width: 250px;
+        height: 250px;
+        border: 1px solid #ffffff;
+        margin: 10px;
+        padding: 10px;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+  
+      .part img {
+        width: 100%;
+        height: 75%;
+      }
+      .part .description {
+    text-align: center; /* Align text to the center */
+    margin-top: 5px; /* Add some space between image and text */
+  }
+  
+  .part p {
+    margin: 0;
+  }
+    </style>
+  </head>
+  <body>
+  
+  <div class="container">
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1BFoI-0415ITykvusf1mIvRsiIgJxisTU?usp=drive_link')">
+      <img src="1.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Report English</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1asw8Q1iq-_Sxy_OWuILwsgrE6klZ9mnp?usp=drive_link')">
+      <img src="2.png" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Presentation English</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1oTo3_0SDHmhuJL2908w2GkkKzOZL3EfX')">
+      <img src="2a.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Presentation English2</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1k6HD2ilGaSC4dYMA0DsvT2S5eD33ZZ6Q?usp=drive_link')">
+      <img src="3.png" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Report kudi</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1hweKjdZbxWDgs3DWehUfWPVpz1IlERra?usp=drive_link')">
+      <img src="4.webp" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Presentation Kurdish</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1S3cCjEXeBJa4Kq8wGYtAqxSHvBSgM4vn?usp=drive_link')">
+      <img src="5.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Report Arabic</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1FFVIJcP83ajspcsgJ-1y3Yahe9AAn14P?usp=drive_link')">
+      <img src="6.webp" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Presentation Arabic</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/1IlmRePr27kgbMw0A-XbcMDYGKJnpoCvY?usp=drive_link')">
+      <img src="7.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Book</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://gamma.app/create/generate/0hjwxghzfffy43m')">
+      <img src="9.png" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>درووستکردنی سمینار</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://app.stryng.io/content/generate')">
+      <img src="11.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>درووستکردنی راپۆرت+ بەحس</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://www.summarizethis.com')">
+      <img src="12.png" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>کورتکردنەوەی بابەت</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://ahrefs.com/writing-tools/paraphrasing-tool')">
+      <img src="13.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>گۆڕینی دەق</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://quillbot.com')">
+      <img src="8.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>گۆڕینی دەق2</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://aithor.com/editor')">
+      <img src="14.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>درووستکردنی راپۆرت</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://chat.openai.com/')">
+      <img src="Chat GPT.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Chat GPT</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://copilot.microsoft.com/')">
+      <img src="co.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Copilot</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://gemini.google.com/app')">
+      <img src="Gemini-AI.webp" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Gemini-AI</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://monica.im/en/home')">
+      <img src="mo.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Monica-AI</p>
+      </div>
+    </div>
+  
+    <div class="part" onclick="goToPage('https://drive.google.com/drive/folders/14R09bk-jc36yx74W9darLxuZLS2Qlmwz?usp=drive_link')">
+      <img src="10.jpg" alt="C:\Users\A\Desktop\html project">
+      <div class="description">
+        <p>Microsoft</p>
+      </div>
+    </div>
+
+  </div>
+<script>
+  function goToPage(page) {
+    window.location.href = page;
+  }
+</script>
+
+</body>
+</html>
+
+  
+  </div>
+  
+  <script>
+    function goToPage(page) {
+      window.location.href = page;
+    }
+  </script>
+  
+  </body>
+  </html>
+  
+</div>
+
+<script>
+  // JavaScript code for form validation from code 1
+  function validateForm() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    // Hardcoded email and password combinations
+    var credentials = {
+      "hazhar@palla": "hazhar1#",
+      "hawta@palla": "hawta#1",
+      "eman@palla": "eman11",
+      "saad@palla": "saad2",
+      "rebin@palla": "rebin1",
+      "rekawt@palla": "rekawt21",
+      "koti@palla": "koti214",
+      "hamasanaan@palla": "hama1122",
+      "dyar@palla": "dyar3222",
+      "ibo@palla": "iboo1122",
+      "briar@palla": "1@1123456",
+      "aland": "1@1#",
+      "skalla@palla": "skallapallla",
+      "bahman@palla": "1@33322@#",
+      "blnd@palla": "freegay70",
+      "palla": "1@1.#.",
+      // Add more email and password combinations here
+    };
+
+    // Check if the entered email exists and the password matches
+    if (credentials.hasOwnProperty(email) && credentials[email] === password) {
+      alert("Login successful!");
+      // If login successful, hide login form and show page content
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("pageContent").style.display = "block";
+      return false; // Returning false to prevent form submission
+    } else {
+      alert("Invalid email or password. Please try again.");
+      return false;
+    }
+  }
+
+  // Function to navigate to a page
+  function goToPage(page) {
+    window.location.href = page;
+  }
+</script>
+
+</body>
+</html>
